@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Blog Post Display -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m2-3 left">
+            {% for blog_post in blog_post_list %}
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Misty</h4>
+                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or
+                                anything else, along with a description.</p>
+                            <hr class="d-none d-lg-block mb-0 ms-0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card lg-6">
+                    <div class="card-body">
+                        {% if 'placeholder' in blog_post.featured_image.url%}
+                        <img class="card-img-top" src="/media/images/placeholder.jpg" alt="Placeholder image of two characters from the game - Albedo and Klee">
+                        {% else %}
+                        <img class="card-img-top" src=" {{ blog_post.featured_image.url }} " alt="User submitted image">
+                        {% endif %}
+                        <div class="image-flash">
+                            <p class="author">Author: {{ blog_post.author }}</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'blog_post_detail' blog_post.slug %}" class="post-link">
+                        <h2 class="card-title">{{ blog_post.title }}</h2>
+                        <p class="card-text">{{ blog_post.exerpt }}</p>
+                    </a>
+                </div>
+            </div>
+
+            {% if forloop.counter | divisibleby:2 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor %}
+            </div>
+    </div>
+</div>
+
+
+{% endblock %}
